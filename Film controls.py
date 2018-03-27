@@ -67,18 +67,15 @@ def addRating(film, new_rating):
     updateFilms()
 
 
-def getRating(film):
-    film_data = films[film]
-    ratings = film_data[10]
-    if ratings == "":
-        return ""
-    ratings_list = []
-    ratings = ratings.split(":")
-    for rating in ratings:
-        ratings_list.append(float(rating))
-
-    rating = round(sum(ratings_list) / len(ratings_list), 1)
-    return rating
+def getRating(filmName):
+    ratings = []
+    with open("films.txt") as filmsFile:
+        for film in filmsFile:
+            film = film.split(",")
+            if filmName in film:
+                ratings = film[11].split(":")
+                ratings = [float(x) for x in ratings]
+    return round(sum(ratings) / len(ratings), 1)
 
 
 def getRatingKey(film):
